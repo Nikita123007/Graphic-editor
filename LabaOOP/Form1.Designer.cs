@@ -28,12 +28,49 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.btnDraw = new System.Windows.Forms.Button();
+            this.pbSurfaceDraw = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pbSurfaceDraw)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // btnDraw
+            // 
+            this.btnDraw.Location = new System.Drawing.Point(23, 23);
+            this.btnDraw.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.btnDraw.Name = "btnDraw";
+            this.btnDraw.Size = new System.Drawing.Size(111, 84);
+            this.btnDraw.TabIndex = 1;
+            this.btnDraw.Text = "Draw";
+            this.btnDraw.UseVisualStyleBackColor = true;
+            // 
+            // pbSurfaceDraw
+            // 
+            this.pbSurfaceDraw.Location = new System.Drawing.Point(158, 12);
+            this.pbSurfaceDraw.Name = "pbSurfaceDraw";
+            this.pbSurfaceDraw.Size = new System.Drawing.Size(670, 348);
+            this.pbSurfaceDraw.TabIndex = 2;
+            this.pbSurfaceDraw.TabStop = false;
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(840, 372);
+            this.Controls.Add(this.pbSurfaceDraw);
+            this.Controls.Add(this.btnDraw);
+            this.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.Name = "Form1";
             this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.pbSurfaceDraw)).EndInit();
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Button btnDraw;
+        private System.Windows.Forms.PictureBox pbSurfaceDraw;
     }
 }
 
