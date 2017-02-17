@@ -42,12 +42,13 @@
             this.btnDraw.TabIndex = 1;
             this.btnDraw.Text = "Draw";
             this.btnDraw.UseVisualStyleBackColor = true;
+            this.btnDraw.Click += new System.EventHandler(this.btnDraw_Click);
             // 
             // pbSurfaceDraw
             // 
             this.pbSurfaceDraw.Location = new System.Drawing.Point(158, 12);
             this.pbSurfaceDraw.Name = "pbSurfaceDraw";
-            this.pbSurfaceDraw.Size = new System.Drawing.Size(670, 348);
+            this.pbSurfaceDraw.Size = new System.Drawing.Size(670, 360);
             this.pbSurfaceDraw.TabIndex = 2;
             this.pbSurfaceDraw.TabStop = false;
             // 
@@ -55,13 +56,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(840, 372);
+            this.ClientSize = new System.Drawing.Size(840, 384);
             this.Controls.Add(this.pbSurfaceDraw);
             this.Controls.Add(this.btnDraw);
             this.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.Name = "DrawFigures";
-            this.Text = "Form1";
+            this.Text = "DrawFigures";
+            this.Move += new System.EventHandler(this.FigOOP_Move);
             ((System.ComponentModel.ISupportInitialize)(this.pbSurfaceDraw)).EndInit();
             this.ResumeLayout(false);
 
