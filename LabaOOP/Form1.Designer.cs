@@ -1,6 +1,6 @@
 ﻿namespace LabaOOP
 {
-    partial class Form1
+    partial class DrawFigures
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -51,7 +51,7 @@
             this.pbSurfaceDraw.TabIndex = 2;
             this.pbSurfaceDraw.TabStop = false;
             // 
-            // Form1
+            // DrawFigures
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -60,7 +60,7 @@
             this.Controls.Add(this.btnDraw);
             this.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.Name = "Form1";
+            this.Name = "DrawFigures";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.pbSurfaceDraw)).EndInit();
             this.ResumeLayout(false);

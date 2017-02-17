@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace LabaOOP
 {
-    public partial class Form1 : Form
+    public partial class DrawFigures : Form
     {
-        public Form1()
+        public DrawFigures()
         {
             InitializeComponent();
         }
