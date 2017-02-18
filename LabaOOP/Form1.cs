@@ -103,8 +103,8 @@ namespace LabaOOP
         }
         private Shape returnNewFigure(string name, int startX, int startY, int finishX, int finishY, Color color, PictureBox pictureBox)
         {
-            return new Circle(startX, startY, finishX, finishY, color, pictureBox);
-            //throw new NotImplementedException();
+            Type type = Type.GetType("LabaOOP." + name);
+            return (Shape)Activator.CreateInstance(type, startX, startY, finishX, finishY, color, pictureBox);
         }
         private void btnCheckColor_Click(object sender, EventArgs e)
         {
