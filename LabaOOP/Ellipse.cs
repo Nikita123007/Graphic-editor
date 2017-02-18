@@ -18,7 +18,14 @@ namespace LabaOOP
         {
             Graphics g = pictureBox.CreateGraphics();
             Pen p = new Pen(Color, WidthPen);
-            g.DrawEllipse(p, StartX, StartY, FinishX - StartX, FinishY - StartY);
+            if (((FinishX - StartX) > 0) && ((FinishY - StartY) > 0))
+                g.DrawEllipse(p, StartX, StartY, FinishX - StartX, FinishY - StartY);
+            if (((FinishX - StartX) > 0) && ((FinishY - StartY) < 0))
+                g.DrawEllipse(p, StartX, FinishY, FinishX - StartX, StartY - FinishY);
+            if (((FinishX - StartX) < 0) && ((FinishY - StartY) > 0))
+                g.DrawEllipse(p, FinishX, StartY, StartX - FinishX, FinishY - StartY);
+            if (((FinishX - StartX) < 0) && ((FinishY - StartY) < 0))
+                g.DrawEllipse(p, FinishX, FinishY, StartX - FinishX, StartY - FinishY);
         }
     }
 }

@@ -18,7 +18,14 @@ namespace LabaOOP
         {
             Graphics g = pictureBox.CreateGraphics();
             Pen p = new Pen(Color, WidthPen);
-            g.DrawRectangle(p, StartX, StartY, FinishX - StartX, FinishY - StartY);
+            if (((FinishX - StartX)>0) && ((FinishY - StartY)>0))
+                g.DrawRectangle(p, StartX, StartY, FinishX - StartX, FinishY - StartY);
+            if (((FinishX - StartX) > 0) && ((FinishY - StartY) < 0))
+                g.DrawRectangle(p, StartX, FinishY, FinishX - StartX, StartY - FinishY);
+            if (((FinishX - StartX) < 0) && ((FinishY - StartY) > 0))
+                g.DrawRectangle(p, FinishX, StartY, StartX - FinishX, FinishY - StartY);
+            if (((FinishX - StartX) < 0) && ((FinishY - StartY) < 0))
+                g.DrawRectangle(p, FinishX, FinishY, StartX - FinishX, StartY - FinishY);
         }
     }
 }
