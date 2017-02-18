@@ -8,9 +8,9 @@ using System.Windows.Forms;
 
 namespace LabaOOP
 {
-    class EquilateralTriangle : Shape
+    class Triangle : Shape
     {
-        public EquilateralTriangle(int StartX, int StartY, int FinishX, int FinishY, Color Color, PictureBox pictureBox) : base(StartX, StartY, FinishX, FinishY, Color, pictureBox)
+        public Triangle(int StartX, int StartY, int FinishX, int FinishY, Color Color, PictureBox pictureBox) : base(StartX, StartY, FinishX, FinishY, Color, pictureBox)
         {
         }
 

@@ -12,11 +12,26 @@ namespace LabaOOP
 {
     public partial class DrawFigures : Form
     {
-        private List<IShape> shapes;
+        private List<Shape> shapes;
+        private string checkedFigure;
+        private int startX;
+        private int startY;
+        private PictureBox pictureBox;
+        private bool createFigure;
+
         public DrawFigures()
         {
             InitializeComponent();
-            shapes = new List<IShape>();
+            StartInitParams();
+        }
+        private void StartInitParams()
+        {
+            shapes = new List<Shape>();
+            checkedFigure = "";
+            startX = -1;
+            startY = -1;
+            pictureBox = pbSurfaceDraw;
+            createFigure = false;
         }
         private void StartInitShapes()
         {
@@ -26,7 +41,7 @@ namespace LabaOOP
             shapes.Add(new Circle(50, 50, 100, 100, Color.Green, pbSurfaceDraw));
             shapes.Add(new Line(50, 50, 200, 200, Color.Orange, pbSurfaceDraw));
             shapes.Add(new Ellipse(200, 200, 300, 350, Color.Gray, pbSurfaceDraw));
-            shapes.Add(new EquilateralTriangle(200, 200, 300, 350, Color.Brown, pbSurfaceDraw));
+            shapes.Add(new Triangle(200, 200, 300, 350, Color.Brown, pbSurfaceDraw));
         }
         private void btnDraw_Click(object sender, EventArgs e)
         {
@@ -35,6 +50,8 @@ namespace LabaOOP
         }
         private void DrawAll()
         {
+            Graphics g = pictureBox.CreateGraphics();
+            g.Clear(Color.White);
             for (int i = 0; i < shapes.Count; i++)
             {
                 shapes[i].Draw();
@@ -46,6 +63,46 @@ namespace LabaOOP
             {
                 DrawAll();
             }
+        }
+        private void CheckFigure(object sender, EventArgs e)
+        {
+            checkedFigure = ((RadioButton)sender).Text;
+        }
+        private void StartPaintFigure(object sender, MouseEventArgs e)
+        {
+            if (checkedFigure != "")
+            {
+                startX = e.X;
+                startY = e.Y;
+            }
+        }
+        private void PaintFigure(object sender, MouseEventArgs e)
+        {
+            if ((checkedFigure != "") && (startX != -1) && (startY != -1))
+            {
+                if (!createFigure) {
+                    shapes.Add(returnNewFigure(checkedFigure, startX, startY, e.X, e.Y, Color.Red, pictureBox));
+                    createFigure = true;
+                }
+                else
+                {
+                    int index = shapes.Count - 1;
+                    shapes[index].FinishX = e.X;
+                    shapes[index].FinishY = e.Y;
+                }
+                DrawAll();
+            }
+        }
+        private void FinishPaintFigure(object sender, MouseEventArgs e)
+        {
+            startX = -1;
+            startY = -1;
+            createFigure = false;
+        }
+        private Shape returnNewFigure(string name, int startX, int startY, int finishX, int finishY, Color color, PictureBox pictureBox)
+        {
+            return new Circle(startX, startY, finishX, finishY, color, pictureBox);
+            //throw new NotImplementedException();
         }
     }
 }

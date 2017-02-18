@@ -11,72 +11,12 @@ namespace LabaOOP
     abstract class Shape : IShape
     {
         protected PictureBox pictureBox;
-        protected int startX;
-        protected int startY;
-        protected int finishX;
-        protected int finishY;
-        protected Color color;
 
-        protected int StartX
-        {
-            get
-            {
-                return startX;
-            }
-
-            set
-            {
-                startX = value;
-            }
-        }
-        protected int StartY
-        {
-            get
-            {
-                return startY;
-            }
-
-            set
-            {
-                startY = value;
-            }
-        }
-        protected int FinishX
-        {
-            get
-            {
-                return finishX;
-            }
-
-            set
-            {
-                finishX = value;
-            }
-        }
-        protected int FinishY
-        {
-            get
-            {
-                return finishY;
-            }
-
-            set
-            {
-                finishY = value;
-            }
-        }
-        protected Color Color
-        {
-            get
-            {
-                return color;
-            }
-
-            set
-            {
-                color = value;
-            }
-        }
+        public int StartX {get; set;}
+        public int StartY { get; set; }
+        public int FinishX { get; set; }
+        public int FinishY { get; set; }
+        public Color Color { get; set; }
 
         public Shape(int StartX, int StartY, int FinishX, int FinishY, Color Color, PictureBox pictureBox)
         {
