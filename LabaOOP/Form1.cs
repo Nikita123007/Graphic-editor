@@ -19,6 +19,7 @@ namespace LabaOOP
         private PictureBox pictureBox;
         private bool createFigure;
         Color color;
+        private int widthPen;
 
         public DrawFigures()
         {
@@ -34,6 +35,7 @@ namespace LabaOOP
             pictureBox = pbSurfaceDraw;
             createFigure = false;
             color = Color.Black;
+            widthPen = 3;
         }
         private void DrawAll()
         {
@@ -68,7 +70,7 @@ namespace LabaOOP
             if ((checkedFigure != "") && (startX != -1) && (startY != -1))
             {
                 if (!createFigure) {
-                    shapes.Add(returnNewFigure(checkedFigure, startX, startY, e.X, e.Y, color, pictureBox));
+                    shapes.Add(returnNewFigure(checkedFigure, startX, startY, e.X, e.Y, color, widthPen, pictureBox));
                     createFigure = true;
                 }
                 else
@@ -86,10 +88,10 @@ namespace LabaOOP
             startY = -1;
             createFigure = false;
         }
-        private Shape returnNewFigure(string name, int startX, int startY, int finishX, int finishY, Color color, PictureBox pictureBox)
+        private Shape returnNewFigure(string name, int startX, int startY, int finishX, int finishY, Color color, int widthPen, PictureBox pictureBox)
         {
             Type type = Type.GetType("LabaOOP." + name);
-            return (Shape)Activator.CreateInstance(type, startX, startY, finishX, finishY, color, pictureBox);
+            return (Shape)Activator.CreateInstance(type, startX, startY, finishX, finishY, color, widthPen, pictureBox);
         }
         private void btnCheckColor_Click(object sender, EventArgs e)
         {
@@ -98,6 +100,10 @@ namespace LabaOOP
                 color = colorDialog1.Color;
                 btnColorIndex.BackColor = color;
             }
+        }
+        private void widthPenNumeric_ValueChanged(object sender, EventArgs e)
+        {
+            widthPen = (int)widthPenNumeric.Value;
         }
     }
 }
