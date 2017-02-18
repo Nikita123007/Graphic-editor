@@ -18,6 +18,7 @@ namespace LabaOOP
         private int startY;
         private PictureBox pictureBox;
         private bool createFigure;
+        Color color;
 
         public DrawFigures()
         {
@@ -32,6 +33,7 @@ namespace LabaOOP
             startY = -1;
             pictureBox = pbSurfaceDraw;
             createFigure = false;
+            color = Color.Black;
         }
         private void StartInitShapes()
         {
@@ -81,7 +83,7 @@ namespace LabaOOP
             if ((checkedFigure != "") && (startX != -1) && (startY != -1))
             {
                 if (!createFigure) {
-                    shapes.Add(returnNewFigure(checkedFigure, startX, startY, e.X, e.Y, Color.Red, pictureBox));
+                    shapes.Add(returnNewFigure(checkedFigure, startX, startY, e.X, e.Y, color, pictureBox));
                     createFigure = true;
                 }
                 else
@@ -103,6 +105,14 @@ namespace LabaOOP
         {
             return new Circle(startX, startY, finishX, finishY, color, pictureBox);
             //throw new NotImplementedException();
+        }
+        private void btnCheckColor_Click(object sender, EventArgs e)
+        {
+            if (colorDialog1.ShowDialog() == DialogResult.OK)
+            {
+                color = colorDialog1.Color;
+                btnColorIndex.BackColor = color;
+            }
         }
     }
 }

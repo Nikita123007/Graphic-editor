@@ -36,7 +36,9 @@
             this.Rectangle = new System.Windows.Forms.RadioButton();
             this.Line = new System.Windows.Forms.RadioButton();
             this.EquilateralTriangle = new System.Windows.Forms.RadioButton();
-            this.label1 = new System.Windows.Forms.Label();
+            this.btnColorIndex = new System.Windows.Forms.Button();
+            this.btnCheckColor = new System.Windows.Forms.Button();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             ((System.ComponentModel.ISupportInitialize)(this.pbSurfaceDraw)).BeginInit();
             this.SuspendLayout();
             // 
@@ -134,14 +136,25 @@
             this.EquilateralTriangle.UseVisualStyleBackColor = true;
             this.EquilateralTriangle.Click += new System.EventHandler(this.CheckFigure);
             // 
-            // label1
+            // btnColorIndex
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(25, 311);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 21);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "label1";
+            this.btnColorIndex.BackColor = System.Drawing.Color.Black;
+            this.btnColorIndex.Enabled = false;
+            this.btnColorIndex.Location = new System.Drawing.Point(47, 347);
+            this.btnColorIndex.Name = "btnColorIndex";
+            this.btnColorIndex.Size = new System.Drawing.Size(25, 25);
+            this.btnColorIndex.TabIndex = 9;
+            this.btnColorIndex.UseVisualStyleBackColor = false;
+            // 
+            // btnCheckColor
+            // 
+            this.btnCheckColor.Location = new System.Drawing.Point(12, 293);
+            this.btnCheckColor.Name = "btnCheckColor";
+            this.btnCheckColor.Size = new System.Drawing.Size(101, 48);
+            this.btnCheckColor.TabIndex = 10;
+            this.btnCheckColor.Text = "Color";
+            this.btnCheckColor.UseVisualStyleBackColor = true;
+            this.btnCheckColor.Click += new System.EventHandler(this.btnCheckColor_Click);
             // 
             // DrawFigures
             // 
@@ -149,7 +162,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(840, 384);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.btnCheckColor);
+            this.Controls.Add(this.btnColorIndex);
             this.Controls.Add(this.EquilateralTriangle);
             this.Controls.Add(this.Line);
             this.Controls.Add(this.Rectangle);
@@ -180,7 +194,9 @@
         private System.Windows.Forms.RadioButton Rectangle;
         private System.Windows.Forms.RadioButton Line;
         private System.Windows.Forms.RadioButton EquilateralTriangle;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnColorIndex;
+        private System.Windows.Forms.Button btnCheckColor;
+        private System.Windows.Forms.ColorDialog colorDialog1;
     }
 }
 
