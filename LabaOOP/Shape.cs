@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace LabaOOP
 {
-    class Shape
+    abstract class Shape : IShape
     {
         protected PictureBox pictureBox;
         protected int startX;
@@ -87,5 +87,7 @@ namespace LabaOOP
             this.Color = Color;
             this.pictureBox = pictureBox;
         }
+
+        abstract public void Draw();
     }
 }

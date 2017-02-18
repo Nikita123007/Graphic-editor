@@ -8,13 +8,13 @@ using System.Windows.Forms;
 
 namespace LabaOOP
 {
-    class Circle : Shape, IShape
+    class Circle : Shape
     {
         public Circle(int StartX, int StartY, int FinishX, int FinishY, Color Color, PictureBox pictureBox) : base(StartX, StartY, FinishX, FinishY, Color, pictureBox)
         {
         }
 
-        public void Draw()
+        override public void Draw()
         {
             Graphics g = pictureBox.CreateGraphics();
             Pen p = new Pen(Color);
