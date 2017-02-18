@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnDraw = new System.Windows.Forms.Button();
             this.pbSurfaceDraw = new System.Windows.Forms.PictureBox();
             this.Ellipse = new System.Windows.Forms.RadioButton();
             this.Circle = new System.Windows.Forms.RadioButton();
@@ -41,17 +40,6 @@
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             ((System.ComponentModel.ISupportInitialize)(this.pbSurfaceDraw)).BeginInit();
             this.SuspendLayout();
-            // 
-            // btnDraw
-            // 
-            this.btnDraw.Location = new System.Drawing.Point(12, 12);
-            this.btnDraw.Margin = new System.Windows.Forms.Padding(8);
-            this.btnDraw.Name = "btnDraw";
-            this.btnDraw.Size = new System.Drawing.Size(101, 84);
-            this.btnDraw.TabIndex = 1;
-            this.btnDraw.Text = "Draw";
-            this.btnDraw.UseVisualStyleBackColor = true;
-            this.btnDraw.Click += new System.EventHandler(this.btnDraw_Click);
             // 
             // pbSurfaceDraw
             // 
@@ -171,7 +159,6 @@
             this.Controls.Add(this.Circle);
             this.Controls.Add(this.Ellipse);
             this.Controls.Add(this.pbSurfaceDraw);
-            this.Controls.Add(this.btnDraw);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Margin = new System.Windows.Forms.Padding(5);
@@ -185,8 +172,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btnDraw;
         private System.Windows.Forms.PictureBox pbSurfaceDraw;
         private System.Windows.Forms.RadioButton Ellipse;
         private System.Windows.Forms.RadioButton Circle;

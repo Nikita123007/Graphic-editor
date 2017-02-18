@@ -35,21 +35,6 @@ namespace LabaOOP
             createFigure = false;
             color = Color.Black;
         }
-        private void StartInitShapes()
-        {
-            shapes.Clear();
-            shapes.Add(new Rectangle(50, 50, 100, 300, Color.Red, pbSurfaceDraw));
-            shapes.Add(new Square(50, 50, 200, 200, Color.Black, pbSurfaceDraw));
-            shapes.Add(new Circle(50, 50, 100, 100, Color.Green, pbSurfaceDraw));
-            shapes.Add(new Line(50, 50, 200, 200, Color.Orange, pbSurfaceDraw));
-            shapes.Add(new Ellipse(200, 200, 300, 350, Color.Gray, pbSurfaceDraw));
-            shapes.Add(new Triangle(200, 200, 300, 350, Color.Brown, pbSurfaceDraw));
-        }
-        private void btnDraw_Click(object sender, EventArgs e)
-        {
-            StartInitShapes();
-            DrawAll();
-        }
         private void DrawAll()
         {
             Graphics g = pictureBox.CreateGraphics();
