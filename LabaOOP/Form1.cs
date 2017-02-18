@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace LabaOOP
 {
@@ -104,6 +106,41 @@ namespace LabaOOP
         private void widthPenNumeric_ValueChanged(object sender, EventArgs e)
         {
             widthPen = (int)widthPenNumeric.Value;
+        }
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                int size = 0;
+                FileStream fout = File.OpenWrite(saveFileDialog.FileName);
+                BinaryFormatter bf = new BinaryFormatter();
+                for (int i = 0; i < shapes.Count; i++)
+                {
+                    bf.Serialize(fout, shapes[i]);
+                }
+                fout.Close();
+            }
+        }
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            shapes.Clear();
+            DrawAll();
+        }
+        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                FileStream fin = File.OpenRead(openFileDialog.FileName);
+                BinaryFormatter bf = new BinaryFormatter();      
+                shapes = (List<Shape>)bf.Deserialize(fin);
+                fin.Close();
+            }
+        }
+        private void exitToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
