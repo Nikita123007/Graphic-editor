@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pbSurfaceDraw = new System.Windows.Forms.PictureBox();
             this.Ellipse = new System.Windows.Forms.RadioButton();
             this.Circle = new System.Windows.Forms.RadioButton();
             this.Square = new System.Windows.Forms.RadioButton();
@@ -41,31 +40,22 @@
             this.widthPenNumeric = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            ((System.ComponentModel.ISupportInitialize)(this.pbSurfaceDraw)).BeginInit();
+            this.pbSurfaceDraw = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.widthPenNumeric)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbSurfaceDraw)).BeginInit();
             this.SuspendLayout();
-            // 
-            // pbSurfaceDraw
-            // 
-            this.pbSurfaceDraw.Location = new System.Drawing.Point(124, 27);
-            this.pbSurfaceDraw.Name = "pbSurfaceDraw";
-            this.pbSurfaceDraw.Size = new System.Drawing.Size(704, 345);
-            this.pbSurfaceDraw.TabIndex = 2;
-            this.pbSurfaceDraw.TabStop = false;
-            this.pbSurfaceDraw.MouseDown += new System.Windows.Forms.MouseEventHandler(this.StartPaintFigure);
-            this.pbSurfaceDraw.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PaintFigure);
-            this.pbSurfaceDraw.MouseUp += new System.Windows.Forms.MouseEventHandler(this.FinishPaintFigure);
             // 
             // Ellipse
             // 
             this.Ellipse.AutoSize = true;
-            this.Ellipse.Location = new System.Drawing.Point(12, 25);
+            this.Ellipse.Location = new System.Drawing.Point(12, 34);
             this.Ellipse.Name = "Ellipse";
             this.Ellipse.Size = new System.Drawing.Size(77, 25);
             this.Ellipse.TabIndex = 3;
@@ -77,7 +67,7 @@
             // Circle
             // 
             this.Circle.AutoSize = true;
-            this.Circle.Location = new System.Drawing.Point(12, 56);
+            this.Circle.Location = new System.Drawing.Point(12, 65);
             this.Circle.Name = "Circle";
             this.Circle.Size = new System.Drawing.Size(72, 25);
             this.Circle.TabIndex = 4;
@@ -89,7 +79,7 @@
             // Square
             // 
             this.Square.AutoSize = true;
-            this.Square.Location = new System.Drawing.Point(12, 87);
+            this.Square.Location = new System.Drawing.Point(12, 96);
             this.Square.Name = "Square";
             this.Square.Size = new System.Drawing.Size(80, 25);
             this.Square.TabIndex = 5;
@@ -101,7 +91,7 @@
             // Rectangle
             // 
             this.Rectangle.AutoSize = true;
-            this.Rectangle.Location = new System.Drawing.Point(12, 118);
+            this.Rectangle.Location = new System.Drawing.Point(12, 127);
             this.Rectangle.Name = "Rectangle";
             this.Rectangle.Size = new System.Drawing.Size(101, 25);
             this.Rectangle.TabIndex = 6;
@@ -113,7 +103,7 @@
             // Line
             // 
             this.Line.AutoSize = true;
-            this.Line.Location = new System.Drawing.Point(12, 149);
+            this.Line.Location = new System.Drawing.Point(12, 158);
             this.Line.Name = "Line";
             this.Line.Size = new System.Drawing.Size(60, 25);
             this.Line.TabIndex = 7;
@@ -125,7 +115,7 @@
             // EquilateralTriangle
             // 
             this.EquilateralTriangle.AutoSize = true;
-            this.EquilateralTriangle.Location = new System.Drawing.Point(12, 180);
+            this.EquilateralTriangle.Location = new System.Drawing.Point(12, 189);
             this.EquilateralTriangle.Name = "EquilateralTriangle";
             this.EquilateralTriangle.Size = new System.Drawing.Size(87, 25);
             this.EquilateralTriangle.TabIndex = 8;
@@ -184,51 +174,77 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(840, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(840, 29);
             this.menuStrip1.TabIndex = 13;
             this.menuStrip1.Text = "menuStrip1";
             // 
+            // fileToolStripMenuItem1
+            // 
+            this.fileToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newToolStripMenuItem,
+            this.saveToolStripMenuItem1,
+            this.loadToolStripMenuItem1,
+            this.exitToolStripMenuItem2});
+            this.fileToolStripMenuItem1.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fileToolStripMenuItem1.Name = "fileToolStripMenuItem1";
+            this.fileToolStripMenuItem1.Size = new System.Drawing.Size(49, 25);
+            this.fileToolStripMenuItem1.Text = "File";
+            // 
+            // newToolStripMenuItem
+            // 
+            this.newToolStripMenuItem.Image = global::LabaOOP.Properties.Resources.clear1;
+            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
+            this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.newToolStripMenuItem.Text = "New";
+            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
+            // 
+            // saveToolStripMenuItem1
+            // 
+            this.saveToolStripMenuItem1.Image = global::LabaOOP.Properties.Resources.save1;
+            this.saveToolStripMenuItem1.Name = "saveToolStripMenuItem1";
+            this.saveToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.saveToolStripMenuItem1.Size = new System.Drawing.Size(181, 26);
+            this.saveToolStripMenuItem1.Text = "Save";
+            this.saveToolStripMenuItem1.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            // 
+            // loadToolStripMenuItem1
+            // 
+            this.loadToolStripMenuItem1.Image = global::LabaOOP.Properties.Resources.load1;
+            this.loadToolStripMenuItem1.Name = "loadToolStripMenuItem1";
+            this.loadToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
+            this.loadToolStripMenuItem1.Size = new System.Drawing.Size(181, 26);
+            this.loadToolStripMenuItem1.Text = "Load";
+            this.loadToolStripMenuItem1.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem2
+            // 
+            this.exitToolStripMenuItem2.Image = global::LabaOOP.Properties.Resources.exit1;
+            this.exitToolStripMenuItem2.Name = "exitToolStripMenuItem2";
+            this.exitToolStripMenuItem2.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
+            this.exitToolStripMenuItem2.Size = new System.Drawing.Size(181, 26);
+            this.exitToolStripMenuItem2.Text = "Exit";
+            this.exitToolStripMenuItem2.Click += new System.EventHandler(this.exitToolStripMenuItem1_Click);
+            // 
             // fileToolStripMenuItem
             // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.loadToolStripMenuItem,
-            this.saveToolStripMenuItem,
-            this.exitToolStripMenuItem,
-            this.exitToolStripMenuItem1});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
-            // loadToolStripMenuItem
+            // pbSurfaceDraw
             // 
-            this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.loadToolStripMenuItem.Text = "Load";
-            this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
-            // 
-            // saveToolStripMenuItem
-            // 
-            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.saveToolStripMenuItem.Text = "Save";
-            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.exitToolStripMenuItem.Text = "Clear";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
-            // 
-            // exitToolStripMenuItem1
-            // 
-            this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
-            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.exitToolStripMenuItem1.Text = "Exit";
-            this.exitToolStripMenuItem1.Click += new System.EventHandler(this.exitToolStripMenuItem1_Click);
+            this.pbSurfaceDraw.Location = new System.Drawing.Point(124, 34);
+            this.pbSurfaceDraw.Name = "pbSurfaceDraw";
+            this.pbSurfaceDraw.Size = new System.Drawing.Size(704, 345);
+            this.pbSurfaceDraw.TabIndex = 2;
+            this.pbSurfaceDraw.TabStop = false;
+            this.pbSurfaceDraw.MouseDown += new System.Windows.Forms.MouseEventHandler(this.StartPaintFigure);
+            this.pbSurfaceDraw.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PaintFigure);
+            this.pbSurfaceDraw.MouseUp += new System.Windows.Forms.MouseEventHandler(this.FinishPaintFigure);
             // 
             // DrawFigures
             // 
@@ -256,10 +272,10 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "DrawFigures";
             this.Move += new System.EventHandler(this.FigOOP_Move);
-            ((System.ComponentModel.ISupportInitialize)(this.pbSurfaceDraw)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.widthPenNumeric)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbSurfaceDraw)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -280,10 +296,11 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem loadToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem loadToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem2;
     }
 }
 

@@ -120,7 +120,7 @@ namespace LabaOOP
                 }
             }
         }
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             shapes.Clear();
             DrawAll();
