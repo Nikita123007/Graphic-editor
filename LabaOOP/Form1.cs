@@ -12,6 +12,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace LabaOOP
 {
+    [Serializable]
     public partial class DrawFigures : Form
     {
         private List<Shape> shapes;
@@ -45,7 +46,7 @@ namespace LabaOOP
             g.Clear(Color.White);
             for (int i = 0; i < shapes.Count; i++)
             {
-                shapes[i].Draw();
+                shapes[i].Draw(pictureBox);
             }
         }
         private void FigOOP_Move(object sender, EventArgs e)
@@ -72,7 +73,7 @@ namespace LabaOOP
             if ((checkedFigure != "") && (startX != -1) && (startY != -1))
             {
                 if (!createFigure) {
-                    shapes.Add(returnNewFigure(checkedFigure, startX, startY, e.X, e.Y, color, widthPen, pictureBox));
+                    shapes.Add(returnNewFigure(checkedFigure, startX, startY, e.X, e.Y, color, widthPen));
                     createFigure = true;
                 }
                 else
@@ -90,10 +91,10 @@ namespace LabaOOP
             startY = -1;
             createFigure = false;
         }
-        private Shape returnNewFigure(string name, int startX, int startY, int finishX, int finishY, Color color, int widthPen, PictureBox pictureBox)
+        private Shape returnNewFigure(string name, int startX, int startY, int finishX, int finishY, Color color, int widthPen)
         {
             Type type = Type.GetType("LabaOOP." + name);
-            return (Shape)Activator.CreateInstance(type, startX, startY, finishX, finishY, color, widthPen, pictureBox);
+            return (Shape)Activator.CreateInstance(type, startX, startY, finishX, finishY, color, widthPen);
         }
         private void btnCheckColor_Click(object sender, EventArgs e)
         {
@@ -112,14 +113,11 @@ namespace LabaOOP
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                int size = 0;
-                FileStream fout = File.OpenWrite(saveFileDialog.FileName);
                 BinaryFormatter bf = new BinaryFormatter();
-                for (int i = 0; i < shapes.Count; i++)
+                using (FileStream fout = new FileStream(saveFileDialog.FileName, FileMode.OpenOrCreate))
                 {
-                    bf.Serialize(fout, shapes[i]);
+                    bf.Serialize(fout, shapes);
                 }
-                fout.Close();
             }
         }
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -132,11 +130,13 @@ namespace LabaOOP
             OpenFileDialog openFileDialog = new OpenFileDialog();
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                FileStream fin = File.OpenRead(openFileDialog.FileName);
-                BinaryFormatter bf = new BinaryFormatter();      
-                shapes = (List<Shape>)bf.Deserialize(fin);
-                fin.Close();
+                BinaryFormatter bf = new BinaryFormatter();
+                using (FileStream fin = new FileStream(openFileDialog.FileName, FileMode.OpenOrCreate))
+                {
+                    shapes = (List<Shape>)(bf.Deserialize(fin));
+                }
             }
+            DrawAll();
         }
         private void exitToolStripMenuItem1_Click(object sender, EventArgs e)
         {

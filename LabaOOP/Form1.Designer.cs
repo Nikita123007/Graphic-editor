@@ -253,6 +253,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "DrawFigures";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "DrawFigures";
             this.Move += new System.EventHandler(this.FigOOP_Move);
             ((System.ComponentModel.ISupportInitialize)(this.pbSurfaceDraw)).EndInit();

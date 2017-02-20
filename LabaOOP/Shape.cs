@@ -8,9 +8,9 @@ using System.Windows.Forms;
 
 namespace LabaOOP
 {
+    [Serializable]
     abstract class Shape : IShape
     {
-        protected PictureBox pictureBox;
 
         public int StartX {get; set;}
         public int StartY { get; set; }
@@ -19,7 +19,7 @@ namespace LabaOOP
         public int WidthPen { get; set; }
         public Color Color { get; set; }
 
-        public Shape(int StartX, int StartY, int FinishX, int FinishY, Color Color, int WidthPen, PictureBox pictureBox)
+        public Shape(int StartX, int StartY, int FinishX, int FinishY, Color Color, int WidthPen)
         {
             this.StartX = StartX;
             this.StartY = StartY;
@@ -27,9 +27,8 @@ namespace LabaOOP
             this.FinishY = FinishY;
             this.WidthPen = WidthPen;
             this.Color = Color;
-            this.pictureBox = pictureBox;
         }
 
-        abstract public void Draw();
+        abstract public void Draw(PictureBox pictureBox);
     }
 }
