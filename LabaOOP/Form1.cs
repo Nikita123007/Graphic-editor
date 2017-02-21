@@ -23,6 +23,11 @@ namespace LabaOOP
         private bool createFigure;
         Color color;
         private int widthPen;
+        private int fieldSize;
+        private static int startWidthForm = 800;
+        private static int startHeightForm = 420;
+        private static int startWidthBox = 650;
+        private static int startHeightBox = 340;
 
         public DrawFigures()
         {
@@ -39,6 +44,7 @@ namespace LabaOOP
             createFigure = false;
             color = Color.Black;
             widthPen = 3;
+            fieldSize = 3;
         }
         private void DrawAll()
         {
@@ -141,6 +147,59 @@ namespace LabaOOP
         private void exitToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+        private void toolStripComboBox1_TextChanged(object sender, EventArgs e)
+        {
+            fieldSize = Convert.ToInt32(toolStripComboBox1.Text);
+            UpdateWidthAndHeightFields();
+        }
+        private void UpdateWidthAndHeightFields()
+        {
+            int addWidthForm = 0;
+            int addHeightForm = 0;
+            int addWidthBox = 0;
+            int addHeightBox = 0;
+            switch (fieldSize)
+            {
+                case 1:
+                    addWidthForm = -200;
+                    addHeightForm = 0;
+                    addWidthBox = -200;
+                    addHeightBox = 0;
+                    break;
+                case 2:
+                    addWidthForm = -100;
+                    addHeightForm = 0;
+                    addWidthBox = -100;
+                    addHeightBox = 0;
+                    break;
+                case 3:
+                    addWidthForm = 0;
+                    addHeightForm = 0;
+                    addWidthBox = 0;
+                    addHeightBox = 0;
+                    break;
+                case 4:
+                    addWidthForm = 100;
+                    addHeightForm = 50;
+                    addWidthBox = 100;
+                    addHeightBox = 50;
+                    break;
+                case 5:
+                    addWidthForm = 200;
+                    addHeightForm = 100;
+                    addWidthBox = 200;
+                    addHeightBox = 100;
+                    break;
+            }
+            pictureBox.Width = startWidthBox + addWidthBox;
+            pictureBox.Height = startHeightBox + addHeightBox;
+            this.Width = startWidthForm + addWidthForm;
+            this.Height = startHeightForm + addHeightForm;
+        }
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Drawing choose the shape, the outline color and thickness of the outline in the left column. In order to draw the shape you need to hold down the left mouse button and not pressing until the shape reaches the desired size. There is also the possibility to save or load a picture clicked on file -> save/load and will clear the file->new.", "Help information", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
         }
     }
 }

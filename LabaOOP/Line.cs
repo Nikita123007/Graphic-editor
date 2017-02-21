@@ -8,6 +8,7 @@ using System.Windows.Forms;
 
 namespace LabaOOP
 {
+    [Serializable]
     class Line : Shape
     {
         public Line(int StartX, int StartY, int FinishX, int FinishY, Color Color, int WidthPen) : base(StartX, StartY, FinishX, FinishY, Color, WidthPen)

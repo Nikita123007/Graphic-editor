@@ -8,6 +8,7 @@ using System.Windows.Forms;
 
 namespace LabaOOP
 {
+    [Serializable]
     class Triangle : Shape
     {
         public Triangle(int StartX, int StartY, int FinishX, int FinishY, Color Color, int WidthPen) : base(StartX, StartY, FinishX, FinishY, Color, WidthPen)

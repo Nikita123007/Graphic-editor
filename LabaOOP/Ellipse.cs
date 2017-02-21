@@ -8,6 +8,7 @@ using System.Windows.Forms;
 
 namespace LabaOOP
 {
+    [Serializable]
     class Ellipse : Shape
     {
         public Ellipse(int StartX, int StartY, int FinishX, int FinishY, Color Color, int WidthPen) : base(StartX, StartY, FinishX, FinishY, Color, WidthPen)
