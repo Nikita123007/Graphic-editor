@@ -21,5 +21,26 @@ namespace LabaOOP
             Pen p = new Pen(Color, WidthPen);
             g.DrawLine(p, StartX, StartY, FinishX, FinishY);
         }
+
+        public override bool Selectable(int mouseX, int mouseY)
+        {
+            double B = 1;
+            double A = 0;
+            if (((FinishX - StartX) > 0) && ((FinishY - StartY) > 0))
+                if ((mouseX > StartX) && (mouseX < FinishX) && (mouseY > StartY) && (mouseY < FinishY))
+                    A = ((double)(FinishY - StartY) / (double)(FinishX - StartX));
+            if (((FinishX - StartX) > 0) && ((FinishY - StartY) < 0))
+                if ((mouseX > StartX) && (mouseX < FinishX) && (mouseY < StartY) && (mouseY > FinishY))
+                    A = -((double)(StartY - FinishY) / (double)(FinishX - StartX));
+            if (((FinishX - StartX) < 0) && ((FinishY - StartY) > 0))
+                if ((mouseX < StartX) && (mouseX > FinishX) && (mouseY > StartY) && (mouseY < FinishY))
+                    A = -((double)(FinishY - StartY) / (double)(StartX - FinishX));
+            if (((FinishX - StartX) < 0) && ((FinishY - StartY) < 0))
+                if ((mouseX < StartX) && (mouseX > FinishX) && (mouseY < StartY) && (mouseY > FinishY))
+                    A = ((double)(StartY - FinishY) / (double)(StartX - FinishX));
+            mouseY = -mouseY;
+            double r = Math.Abs(A * mouseX + B * mouseY - A * StartX + B * StartY) / (Math.Sqrt(Math.Pow(A, 2) + Math.Pow(B, 2)));
+            return (r < 5);
+        }
     }
 }

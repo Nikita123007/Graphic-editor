@@ -28,5 +28,15 @@ namespace LabaOOP
             if (((FinishX - StartX) < 0) && ((FinishY - StartY) < 0))
                 g.DrawEllipse(p, FinishX, FinishY, StartX - FinishX, StartY - FinishY);
         }
+
+        public override bool Selectable(int mouseX, int mouseY)
+        {
+            int centerX = (StartX + FinishX) / 2;
+            int centerY = (StartY + FinishY) / 2;
+            int a = (FinishY - StartY) / 2;
+            int b = (FinishX - StartX) / 2;
+            double result = Math.Pow(mouseX - centerX, 2) / Math.Pow(b, 2) + Math.Pow(mouseY - centerY, 2) / Math.Pow(a, 2);
+            return (result <= 1);
+        }
     }
 }

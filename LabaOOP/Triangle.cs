@@ -25,5 +25,36 @@ namespace LabaOOP
             pointsTriangle[2] = new Point((StartX + FinishX) / 2, StartY);
             g.DrawPolygon(p, pointsTriangle);
         }
+
+        public override bool Selectable(int mouseX, int mouseY)
+        {
+            double halfWidth = (Math.Abs(StartX - FinishX)) / 2;
+            double height = Math.Abs(StartY - FinishY);
+            if (((FinishX - StartX) > 0) && ((FinishY - StartY) > 0))
+                if ((mouseX > StartX) && (mouseX < FinishX) && (mouseY > StartY) && (mouseY < FinishY))
+                    if ((mouseX - StartX) <= (FinishX - mouseX))
+                        return ((mouseX - StartX) / (halfWidth) >= ((FinishY - mouseY) / (height)));
+                    else
+                        return ((FinishX - mouseX) / (halfWidth) >= ((FinishY - mouseY) / (height)));
+            if (((FinishX - StartX) > 0) && ((FinishY - StartY) < 0))
+                if ((mouseX > StartX) && (mouseX < FinishX) && (mouseY < StartY) && (mouseY > FinishY))
+                    if ((mouseX - StartX) <= (FinishX - mouseX))
+                        return ((mouseX - StartX) / (halfWidth) >= ((mouseY - FinishY) / (height)));
+                    else
+                        return ((FinishX - mouseX) / (halfWidth) >= ((mouseY - FinishY) / (height)));
+            if (((FinishX - StartX) < 0) && ((FinishY - StartY) > 0))
+                if ((mouseX < StartX) && (mouseX > FinishX) && (mouseY > StartY) && (mouseY < FinishY))
+                    if ((StartX - mouseX) <= (mouseX - FinishX))
+                        return ((StartX - mouseX) / (halfWidth) >= ((FinishY - mouseY) / (height)));
+                    else
+                        return ((mouseX - FinishX) / (halfWidth) >= ((FinishY - mouseY) / (height)));
+            if (((FinishX - StartX) < 0) && ((FinishY - StartY) < 0))
+                if ((mouseX < StartX) && (mouseX > FinishX) && (mouseY < StartY) && (mouseY > FinishY))
+                    if ((StartX - mouseX) <= (mouseX - FinishX))
+                        return ((StartX - mouseX) / (halfWidth) >= ((mouseY - FinishY) / (height)));
+                    else
+                        return ((mouseX - FinishX) / (halfWidth) >= ((mouseY - FinishY) / (height)));
+            return false;
+        }
     }
 }

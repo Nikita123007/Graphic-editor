@@ -25,9 +25,9 @@ namespace LabaOOP
         private int widthPen;
         private int fieldSize;
         private static int startWidthForm = 800;
-        private static int startHeightForm = 420;
+        private static int startHeightForm = 430;
         private static int startWidthBox = 650;
-        private static int startHeightBox = 340;
+        private static int startHeightBox = 350;
 
         public DrawFigures()
         {
@@ -72,6 +72,10 @@ namespace LabaOOP
             {
                 startX = e.X;
                 startY = e.Y;
+            }
+            else
+            {
+                SelectionFigure(e.X, e.Y);
             }
         }
         private void PaintFigure(object sender, MouseEventArgs e)
@@ -200,6 +204,52 @@ namespace LabaOOP
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Drawing choose the shape, the outline color and thickness of the outline in the left column. In order to draw the shape you need to hold down the left mouse button and not pressing until the shape reaches the desired size. There is also the possibility to save or load a picture clicked on file -> save/load and will clear the file->new.", "Help information", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+        }
+        private void CheckedMouse(object sender, EventArgs e)
+        {
+            checkedFigure = "";
+        }
+        private void SelectionFigure(int mouseX, int mouseY)
+        {
+            int indexSelectionFigure = -1;
+            for (int i = 0; i < shapes.Count; i++)
+                if (shapes[i].Selectable(mouseX, mouseY))
+                    indexSelectionFigure = i;
+            DrawAll();
+            DrawSelectionFigure(indexSelectionFigure);
+        }
+        private void DrawSelectionFigure(int indexSelectionFigure)
+        {
+            if (indexSelectionFigure != -1)
+            {
+                Graphics g = pictureBox.CreateGraphics();
+                Pen pen = new Pen(Color.Gray, 1);
+                Point startP = new Point(shapes[indexSelectionFigure].StartX, shapes[indexSelectionFigure].StartY);
+                Point finishP = new Point(shapes[indexSelectionFigure].FinishX, shapes[indexSelectionFigure].FinishY);
+                System.Drawing.Rectangle rect = RetRectOfPoints(startP, finishP);
+                g.DrawRectangle(pen, rect);
+            }
+        }
+        private System.Drawing.Rectangle RetRectOfPoints(Point startP,Point finishP)
+        {
+            Point startPR = startP;
+            Point finishPR = finishP;
+            if (((finishP.X - startP.X) > 0) && ((finishP.Y - startP.Y) < 0))
+            {
+                startPR.Y = finishP.Y;
+                finishPR.Y = startP.Y;
+            }
+            if (((finishP.X - startP.X) < 0) && ((finishP.Y - startP.Y) > 0))
+            {
+                startPR.X = finishP.X;
+                finishPR.X = startP.X;
+            }
+            if (((finishP.X - startP.X) < 0) && ((finishP.Y - startP.Y) < 0))
+            {
+                startPR = finishP;
+                finishPR = startP;
+            }
+            return new System.Drawing.Rectangle(startPR.X, startPR.Y, finishPR.X - startPR.X, finishPR.Y - startPR.Y);
         }
     }
 }

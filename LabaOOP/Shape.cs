@@ -9,7 +9,7 @@ using System.Windows.Forms;
 namespace LabaOOP
 {
     [Serializable]
-    abstract class Shape : IShape
+    abstract class Shape : IShape, ISelectable
     {
 
         public int StartX {get; set;}
@@ -30,5 +30,7 @@ namespace LabaOOP
         }
 
         abstract public void Draw(PictureBox pictureBox);
+
+        abstract public bool Selectable(int mouseX, int mouseY);
     }
 }

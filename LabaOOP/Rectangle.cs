@@ -28,5 +28,18 @@ namespace LabaOOP
             if (((FinishX - StartX) < 0) && ((FinishY - StartY) < 0))
                 g.DrawRectangle(p, FinishX, FinishY, StartX - FinishX, StartY - FinishY);
         }
+
+        public override bool Selectable(int mouseX, int mouseY)
+        {
+            if (((FinishX - StartX) > 0) && ((FinishY - StartY) > 0))
+                return ((mouseX > StartX) && (mouseX < FinishX) && (mouseY > StartY) && (mouseY < FinishY));
+            if (((FinishX - StartX) > 0) && ((FinishY - StartY) < 0))
+                return ((mouseX > StartX) && (mouseX < FinishX) && (mouseY < StartY) && (mouseY > FinishY));
+            if (((FinishX - StartX) < 0) && ((FinishY - StartY) > 0))
+                return ((mouseX < StartX) && (mouseX > FinishX) && (mouseY > StartY) && (mouseY < FinishY));
+            if (((FinishX - StartX) < 0) && ((FinishY - StartY) < 0))
+                return ((mouseX < StartX) && (mouseX > FinishX) && (mouseY < StartY) && (mouseY > FinishY));
+            return false;
+        }
     }
 }
