@@ -76,7 +76,6 @@
             this.Circle.Name = "Circle";
             this.Circle.Size = new System.Drawing.Size(72, 25);
             this.Circle.TabIndex = 4;
-            this.Circle.TabStop = true;
             this.Circle.Text = "Circle";
             this.Circle.UseVisualStyleBackColor = true;
             this.Circle.Click += new System.EventHandler(this.CheckFigure);
@@ -294,15 +293,14 @@
             // Mouse
             // 
             this.Mouse.AutoSize = true;
-            this.Mouse.Checked = true;
             this.Mouse.Location = new System.Drawing.Point(12, 220);
             this.Mouse.Name = "Mouse";
             this.Mouse.Size = new System.Drawing.Size(79, 25);
             this.Mouse.TabIndex = 14;
-            this.Mouse.TabStop = true;
             this.Mouse.Text = "Mouse";
             this.Mouse.UseVisualStyleBackColor = true;
             this.Mouse.Click += new System.EventHandler(this.CheckedMouse);
+            this.Mouse.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Mouse_KeyPress);
             // 
             // DrawFigures
             // 
