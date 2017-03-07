@@ -9,12 +9,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using ShapeLibrary;
 
 namespace LabaOOP
 {
     [Serializable]
     public partial class DrawFigures : Form
     {
+        
         private List<Shape> shapes;
         private string checkedFigure;
         private int startX;
