@@ -5,7 +5,13 @@ using System.Windows.Forms;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using ShapeLibrary;
+using System.ComponentModel.Composition.Hosting;
+using System.ComponentModel.Composition;
 using CircleLibrary;
+using LineLibrary;
+using SquareLibrary;
+using TriangleLibrary;
+using EllipseLibrary;
 
 namespace LabaOOP
 {
@@ -48,6 +54,9 @@ namespace LabaOOP
             numberSelectionFigure = -1;
             numberSelectionFigure = -1;
             mouse = new Point(-1, -1);
+            var catalog = new DirectoryCatalog(@"D:\учеба\4 семестр\лабы\ООТПиСП\LabaOOP\LabaOOP\dll");
+            var container = new CompositionContainer(catalog);
+            container.ComposeParts(this);
         }
         private void DrawAll()
         {
