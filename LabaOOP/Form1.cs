@@ -1,22 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using ShapeLibrary;
+using CircleLibrary;
 
 namespace LabaOOP
 {
     [Serializable]
     public partial class DrawFigures : Form
     {
-        
         private List<Shape> shapes;
         private string checkedFigure;
         private int startX;
@@ -237,7 +232,8 @@ namespace LabaOOP
         }
         private Shape returnNewFigure(string name, int startX, int startY, int finishX, int finishY, Color color, int widthPen)
         {
-            Type type = Type.GetType("LabaOOP." + name);
+            string tamplate = "{NameClass}Library.{NameClass}, {NameClass}Library, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null";
+            Type type = Type.GetType(tamplate.Replace("{NameClass}", name));
             return (Shape)Activator.CreateInstance(type, startX, startY, finishX, finishY, color, widthPen);
         }
         private void btnCheckColor_Click(object sender, EventArgs e)

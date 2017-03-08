@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CircleLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>dll\CircleLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="ShapeLibrary">
       <HintPath>.\ShapeLibrary.dll</HintPath>
     </Reference>
@@ -49,7 +53,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Circle.cs" />
     <Compile Include="Ellipse.cs" />
     <Compile Include="Triangle.cs" />
     <Compile Include="Form1.cs">
