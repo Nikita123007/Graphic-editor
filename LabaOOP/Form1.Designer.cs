@@ -28,12 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.Ellipse = new System.Windows.Forms.RadioButton();
-            this.Circle = new System.Windows.Forms.RadioButton();
-            this.Square = new System.Windows.Forms.RadioButton();
-            this.Rectangle = new System.Windows.Forms.RadioButton();
-            this.Line = new System.Windows.Forms.RadioButton();
-            this.EquilateralTriangle = new System.Windows.Forms.RadioButton();
             this.btnColorIndex = new System.Windows.Forms.Button();
             this.btnCheckColor = new System.Windows.Forms.Button();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
@@ -52,81 +46,11 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pbSurfaceDraw = new System.Windows.Forms.PictureBox();
             this.Mouse = new System.Windows.Forms.RadioButton();
+            this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.widthPenNumeric)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbSurfaceDraw)).BeginInit();
             this.SuspendLayout();
-            // 
-            // Ellipse
-            // 
-            this.Ellipse.AutoSize = true;
-            this.Ellipse.Location = new System.Drawing.Point(12, 34);
-            this.Ellipse.Name = "Ellipse";
-            this.Ellipse.Size = new System.Drawing.Size(77, 25);
-            this.Ellipse.TabIndex = 3;
-            this.Ellipse.TabStop = true;
-            this.Ellipse.Text = "Ellipse";
-            this.Ellipse.UseVisualStyleBackColor = true;
-            this.Ellipse.Click += new System.EventHandler(this.CheckFigure);
-            // 
-            // Circle
-            // 
-            this.Circle.AutoSize = true;
-            this.Circle.Location = new System.Drawing.Point(12, 65);
-            this.Circle.Name = "Circle";
-            this.Circle.Size = new System.Drawing.Size(72, 25);
-            this.Circle.TabIndex = 4;
-            this.Circle.Text = "Circle";
-            this.Circle.UseVisualStyleBackColor = true;
-            this.Circle.Click += new System.EventHandler(this.CheckFigure);
-            // 
-            // Square
-            // 
-            this.Square.AutoSize = true;
-            this.Square.Location = new System.Drawing.Point(12, 96);
-            this.Square.Name = "Square";
-            this.Square.Size = new System.Drawing.Size(80, 25);
-            this.Square.TabIndex = 5;
-            this.Square.TabStop = true;
-            this.Square.Text = "Square";
-            this.Square.UseVisualStyleBackColor = true;
-            this.Square.Click += new System.EventHandler(this.CheckFigure);
-            // 
-            // Rectangle
-            // 
-            this.Rectangle.AutoSize = true;
-            this.Rectangle.Location = new System.Drawing.Point(12, 127);
-            this.Rectangle.Name = "Rectangle";
-            this.Rectangle.Size = new System.Drawing.Size(101, 25);
-            this.Rectangle.TabIndex = 6;
-            this.Rectangle.TabStop = true;
-            this.Rectangle.Text = "Rectangle";
-            this.Rectangle.UseVisualStyleBackColor = true;
-            this.Rectangle.Click += new System.EventHandler(this.CheckFigure);
-            // 
-            // Line
-            // 
-            this.Line.AutoSize = true;
-            this.Line.Location = new System.Drawing.Point(12, 158);
-            this.Line.Name = "Line";
-            this.Line.Size = new System.Drawing.Size(60, 25);
-            this.Line.TabIndex = 7;
-            this.Line.TabStop = true;
-            this.Line.Text = "Line";
-            this.Line.UseVisualStyleBackColor = true;
-            this.Line.Click += new System.EventHandler(this.CheckFigure);
-            // 
-            // EquilateralTriangle
-            // 
-            this.EquilateralTriangle.AutoSize = true;
-            this.EquilateralTriangle.Location = new System.Drawing.Point(12, 189);
-            this.EquilateralTriangle.Name = "EquilateralTriangle";
-            this.EquilateralTriangle.Size = new System.Drawing.Size(87, 25);
-            this.EquilateralTriangle.TabIndex = 8;
-            this.EquilateralTriangle.TabStop = true;
-            this.EquilateralTriangle.Text = "Triangle";
-            this.EquilateralTriangle.UseVisualStyleBackColor = true;
-            this.EquilateralTriangle.Click += new System.EventHandler(this.CheckFigure);
             // 
             // btnColorIndex
             // 
@@ -240,7 +164,8 @@
             // 
             this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fieldSizeToolStripMenuItem,
-            this.toolStripComboBox1});
+            this.toolStripComboBox1,
+            this.importToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(81, 25);
             this.settingsToolStripMenuItem.Text = "Settings";
@@ -302,6 +227,13 @@
             this.Mouse.Click += new System.EventHandler(this.CheckedMouse);
             this.Mouse.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Mouse_KeyPress);
             // 
+            // importToolStripMenuItem
+            // 
+            this.importToolStripMenuItem.Name = "importToolStripMenuItem";
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.importToolStripMenuItem.Text = "Import";
+            this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
+            // 
             // DrawFigures
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
@@ -313,12 +245,6 @@
             this.Controls.Add(this.widthPenNumeric);
             this.Controls.Add(this.btnCheckColor);
             this.Controls.Add(this.btnColorIndex);
-            this.Controls.Add(this.EquilateralTriangle);
-            this.Controls.Add(this.Line);
-            this.Controls.Add(this.Rectangle);
-            this.Controls.Add(this.Square);
-            this.Controls.Add(this.Circle);
-            this.Controls.Add(this.Ellipse);
             this.Controls.Add(this.pbSurfaceDraw);
             this.Controls.Add(this.menuStrip1);
             this.DoubleBuffered = true;
@@ -340,12 +266,6 @@
 
         #endregion
         private System.Windows.Forms.PictureBox pbSurfaceDraw;
-        private System.Windows.Forms.RadioButton Ellipse;
-        private System.Windows.Forms.RadioButton Circle;
-        private System.Windows.Forms.RadioButton Square;
-        private System.Windows.Forms.RadioButton Rectangle;
-        private System.Windows.Forms.RadioButton Line;
-        private System.Windows.Forms.RadioButton EquilateralTriangle;
         private System.Windows.Forms.Button btnColorIndex;
         private System.Windows.Forms.Button btnCheckColor;
         private System.Windows.Forms.ColorDialog colorDialog1;
@@ -363,6 +283,7 @@
         private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.RadioButton Mouse;
+        private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
     }
 }
 

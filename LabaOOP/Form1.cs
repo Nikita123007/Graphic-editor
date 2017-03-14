@@ -4,14 +4,12 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using ShapeLibrary;
-using System.ComponentModel.Composition.Hosting;
+using System.Reflection;
 using System.ComponentModel.Composition;
-using CircleLibrary;
-using LineLibrary;
-using SquareLibrary;
-using TriangleLibrary;
-using EllipseLibrary;
+using System.ComponentModel.Composition.Hosting;
+using ShapeLibrary;
+using System.Runtime.Serialization.Json;
+using Newtonsoft.Json;
 
 namespace LabaOOP
 {
@@ -34,6 +32,12 @@ namespace LabaOOP
         private int numberSelectionFigure;
         private int numberEditionFigure;
         private Point mouse;
+        private ImportManager imports;
+        private Dictionary<string, Type> typeOfFigures = new Dictionary<string, Type>();
+        private int numberButton;
+        KnownTypesBinder kBinder = new KnownTypesBinder();
+        private string path = @"..\..\dll";
+        private List<RadioButton> btnList;
 
         public DrawFigures()
         {
@@ -54,9 +58,42 @@ namespace LabaOOP
             numberSelectionFigure = -1;
             numberSelectionFigure = -1;
             mouse = new Point(-1, -1);
-            var catalog = new DirectoryCatalog(@"D:\учеба\4 семестр\лабы\ООТПиСП\LabaOOP\LabaOOP\dll");
+            btnList = new List<RadioButton>();
+            AddDll();
+        }
+        private void AddDll()
+        {
+            numberButton = 0;
+            List<Type> tempTypes = new List<Type>();
+            var catalog = new DirectoryCatalog(path);
             var container = new CompositionContainer(catalog);
-            container.ComposeParts(this);
+            imports = new ImportManager();
+            container.ComposeParts(this, imports);
+            foreach (var figure in imports.readerExtCollection)
+            {
+                string nameFigure = figure.Value.GetType().ToString().Split('.')[0].Replace("Library", "");
+                typeOfFigures.Add(nameFigure, figure.Value.GetType());
+                CreateRadioButtonOnForm(nameFigure);
+                tempTypes.Add(figure.Value.GetType());
+            }
+            tempTypes.Add(shapes.GetType());
+            kBinder.KnownTypes = tempTypes;
+        }
+        private void CreateRadioButtonOnForm(string name)
+        {
+            numberButton++;
+            RadioButton rb = returnTamplateRadioButton();
+            rb.Text = name;
+            rb.Name = name;
+            rb.Location = new Point(12, 30 * numberButton + 10);
+            this.Controls.Add(rb);
+            btnList.Add(rb);
+        }
+        private RadioButton returnTamplateRadioButton()
+        {
+            RadioButton rb = new RadioButton();
+            rb.Click += new EventHandler(CheckFigure);
+            return rb;
         }
         private void DrawAll()
         {
@@ -241,9 +278,8 @@ namespace LabaOOP
         }
         private Shape returnNewFigure(string name, int startX, int startY, int finishX, int finishY, Color color, int widthPen)
         {
-            string tamplate = "{NameClass}Library.{NameClass}, {NameClass}Library, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null";
-            Type type = Type.GetType(tamplate.Replace("{NameClass}", name));
-            return (Shape)Activator.CreateInstance(type, startX, startY, finishX, finishY, color, widthPen);
+            Type typeFigure = typeOfFigures[name];
+            return (Shape)Activator.CreateInstance(typeFigure, startX, startY, finishX, finishY, color, widthPen);
         }
         private void btnCheckColor_Click(object sender, EventArgs e)
         {
@@ -280,11 +316,19 @@ namespace LabaOOP
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
+                /*//binary
                 BinaryFormatter bf = new BinaryFormatter();
                 using (FileStream fout = new FileStream(saveFileDialog.FileName, FileMode.OpenOrCreate))
                 {
                     bf.Serialize(fout, shapes);
-                }
+                }*/
+                //json
+                string json = JsonConvert.SerializeObject(shapes, new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.All,
+                    Binder = kBinder
+                });
+                File.WriteAllText(saveFileDialog.FileName, json);
             }
         }
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
@@ -297,16 +341,30 @@ namespace LabaOOP
         }
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            try
             {
-                BinaryFormatter bf = new BinaryFormatter();
-                using (FileStream fin = new FileStream(openFileDialog.FileName, FileMode.OpenOrCreate))
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    shapes = (List<Shape>)(bf.Deserialize(fin));
+                    //binary
+                    /*BinaryFormatter bf = new BinaryFormatter();
+                    using (FileStream fin = new FileStream(openFileDialog.FileName, FileMode.OpenOrCreate))
+                    {
+                        shapes = (List<Shape>)(bf.Deserialize(fin));
+                    }*/
+                    string json = File.ReadAllText(openFileDialog.FileName);
+                    shapes = JsonConvert.DeserializeObject<List<Shape>>(json, new JsonSerializerSettings
+                    {
+                        TypeNameHandling = TypeNameHandling.All,
+                        Binder = kBinder
+                    });
                 }
+                DrawAll();
             }
-            DrawAll();
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message, "Ошибка при выполнении загрузки", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         private void exitToolStripMenuItem1_Click(object sender, EventArgs e)
         {
@@ -367,7 +425,7 @@ namespace LabaOOP
         }
         private void CheckedMouse(object sender, EventArgs e)
         {
-            checkedFigure = "";          
+            checkedFigure = "";
         }
         private void SelectionFigure(int mouseX, int mouseY)
         {
@@ -400,12 +458,13 @@ namespace LabaOOP
                 Point finishP = new Point(shapes[indexSelectionFigure].FinishX, shapes[indexSelectionFigure].FinishY);
                 System.Drawing.Rectangle rect = RetRectOfPoints(startP, finishP);
                 g.DrawRectangle(pen, rect);
-            }else
+            }
+            else
             {
                 numberSelectionFigure = -1;
             }
         }
-        private System.Drawing.Rectangle RetRectOfPoints(Point startP,Point finishP)
+        private System.Drawing.Rectangle RetRectOfPoints(Point startP, Point finishP)
         {
             Point startPR = startP;
             Point finishPR = finishP;
@@ -462,6 +521,22 @@ namespace LabaOOP
         {
             numberSelectionFigure = (numberSelectionFigure + 1) % shapes.Count;
             DrawAll();
+        }
+        private void importToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DeleteFiguresButtons();
+            btnList.Clear();
+            AddDll();
+        }
+        private void DeleteFiguresButtons()
+        {
+            if (btnList != null)
+            {
+                for (int i = 0; i < btnList.Count; i++)
+                {
+                    this.Controls.Remove(btnList[i]);
+                }
+            }
         }
     }
 }
