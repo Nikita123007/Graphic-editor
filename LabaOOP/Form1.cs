@@ -10,6 +10,7 @@ using System.ComponentModel.Composition.Hosting;
 using ShapeLibrary;
 using System.Runtime.Serialization.Json;
 using Newtonsoft.Json;
+using InputBox;
 
 namespace LabaOOP
 {
@@ -17,6 +18,7 @@ namespace LabaOOP
     public partial class DrawFigures : Form
     {
         private List<Shape> shapes;
+        private Dictionary<string, NewShape> newShapes;
         private string checkedFigure;
         private int startX;
         private int startY;
@@ -26,9 +28,9 @@ namespace LabaOOP
         private int widthPen;
         private int fieldSize;
         private static int startWidthForm = 800;
-        private static int startHeightForm = 430;
+        private static int startHeightForm = 460;
         private static int startWidthBox = 650;
-        private static int startHeightBox = 350;
+        private static int startHeightBox = 380;
         private int numberSelectionFigure;
         private int numberEditionFigure;
         private Point mouse;
@@ -38,6 +40,7 @@ namespace LabaOOP
         KnownTypesBinder kBinder = new KnownTypesBinder();
         private string path = @"..\..\dll";
         private List<RadioButton> btnList;
+        private string pachNewFigures = @"newFigures.json";
 
         public DrawFigures()
         {
@@ -46,6 +49,8 @@ namespace LabaOOP
         }
         private void StartInitParams()
         {
+            newShapes = new Dictionary<string, NewShape>();
+            cb_Figures.Items.Add("Mouse");
             shapes = new List<Shape>();
             checkedFigure = "";
             startX = -1;
@@ -60,24 +65,77 @@ namespace LabaOOP
             mouse = new Point(-1, -1);
             btnList = new List<RadioButton>();
             AddDll();
+            LoadNewFigures();
+        }
+        private void LoadNewFigures()
+        {
+            try
+            {                
+                string json = File.ReadAllText(pachNewFigures);
+                newShapes = JsonConvert.DeserializeObject<Dictionary<string, NewShape>>(json, new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.All,
+                    Binder = kBinder
+                });
+                AddNewShapes();
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message, "Ошибка при выполнении загрузки", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void AddNewShapes()
+        {
+            if (newShapes != null) {
+                int N = newShapes.Count;
+                string[] arrayNewShapes = new string[N];
+                newShapes.Keys.CopyTo(arrayNewShapes, 0);
+                for(int i = 0; i < N; i++)
+                {
+                    cb_Figures.Items.Add(arrayNewShapes[i]);
+                }
+            }
+        }
+        private void SaveNewFigures()
+        {
+            try
+            {
+                string json = JsonConvert.SerializeObject(newShapes, new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.All,
+                    Binder = kBinder
+                });
+                File.WriteAllText(pachNewFigures, json);
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message, "Ошибка при выполнении загрузки", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         private void AddDll()
         {
-            numberButton = 0;
-            List<Type> tempTypes = new List<Type>();
-            var catalog = new DirectoryCatalog(path);
-            var container = new CompositionContainer(catalog);
-            imports = new ImportManager();
-            container.ComposeParts(this, imports);
-            foreach (var figure in imports.readerExtCollection)
+            try
             {
-                string nameFigure = figure.Value.GetType().ToString().Split('.')[0].Replace("Library", "");
-                typeOfFigures.Add(nameFigure, figure.Value.GetType());
-                CreateRadioButtonOnForm(nameFigure);
-                tempTypes.Add(figure.Value.GetType());
+                numberButton = 0;
+                List<Type> tempTypes = new List<Type>();
+                var catalog = new DirectoryCatalog(path);
+                var container = new CompositionContainer(catalog);
+                imports = new ImportManager();
+                container.ComposeParts(this, imports);
+                foreach (var figure in imports.readerExtCollection)
+                {
+                    string nameFigure = figure.Value.GetType().ToString().Split('.')[0].Replace("Library", "");
+                    typeOfFigures.Add(nameFigure, figure.Value.GetType());
+                    CreateRadioButtonOnForm(nameFigure);
+                    tempTypes.Add(figure.Value.GetType());
+                    cb_Figures.Items.Add(nameFigure);
+                }
+                tempTypes.Add(shapes.GetType());
+                tempTypes.Add(newShapes.GetType());
+                tempTypes.Add((new NewShape(0, 0, 0, 0, null)).GetType());
+                kBinder.KnownTypes = tempTypes;
             }
-            tempTypes.Add(shapes.GetType());
-            kBinder.KnownTypes = tempTypes;
+            catch { }
         }
         private void CreateRadioButtonOnForm(string name)
         {
@@ -278,8 +336,23 @@ namespace LabaOOP
         }
         private Shape returnNewFigure(string name, int startX, int startY, int finishX, int finishY, Color color, int widthPen)
         {
-            Type typeFigure = typeOfFigures[name];
-            return (Shape)Activator.CreateInstance(typeFigure, startX, startY, finishX, finishY, color, widthPen);
+            if (typeOfFigures.ContainsKey(name))
+            {
+                Type typeFigure = typeOfFigures[name];
+                return (Shape)Activator.CreateInstance(typeFigure, startX, startY, finishX, finishY, color, widthPen);
+            }
+            if (newShapes.ContainsKey(name))
+            {
+                NewShape temp = (NewShape)(newShapes[name].Clone());
+                temp.StartX = startX;
+                temp.StartY = startY;
+                temp.FinishX = finishX;
+                temp.FinishY = finishY;
+                temp.Color = color;
+                temp.WidthPen = widthPen;
+                return (Shape)temp;
+            }
+            return null;
         }
         private void btnCheckColor_Click(object sender, EventArgs e)
         {
@@ -377,6 +450,15 @@ namespace LabaOOP
         }
         private void UpdateWidthAndHeightFields()
         {
+            int WidthForm = 0, HeightForm = 0, WidthBox = 0, HeightBox = 0;
+            GetNewWidthAndHeightOfField(out WidthForm, out HeightForm, out WidthBox, out HeightBox);
+            pictureBox.Width = WidthBox;
+            pictureBox.Height = HeightBox;
+            this.Width = WidthForm;
+            this.Height = HeightForm;
+        }
+        private void GetNewWidthAndHeightOfField(out int WidthForm, out int HeightForm, out int WidthBox, out int HeightBox)
+        {
             int addWidthForm = 0;
             int addHeightForm = 0;
             int addWidthBox = 0;
@@ -414,10 +496,10 @@ namespace LabaOOP
                     addHeightBox = 100;
                     break;
             }
-            pictureBox.Width = startWidthBox + addWidthBox;
-            pictureBox.Height = startHeightBox + addHeightBox;
-            this.Width = startWidthForm + addWidthForm;
-            this.Height = startHeightForm + addHeightForm;
+            WidthBox = startWidthBox + addWidthBox;
+            HeightBox = startHeightBox + addHeightBox;
+            WidthForm = startWidthForm + addWidthForm;
+            HeightForm = startHeightForm + addHeightForm;
         }
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -537,6 +619,73 @@ namespace LabaOOP
                     this.Controls.Remove(btnList[i]);
                 }
             }
+            cb_Figures.Items.Clear();
+            cb_Figures.Items.Add("Mouse");
+        }
+        private void cb_Figures_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (checkedFigure == "Mouse")
+            {
+                if (numberSelectionFigure != -1)
+                {
+                    switch (e.KeyChar)
+                    {
+                        case 'w':
+                        case 'W':
+                        case 'ц':
+                        case 'Ц': NextShape(); break;
+                        case 's':
+                        case 'S':
+                        case 'ы':
+                        case 'Ы': BackShape(); break;
+                        case (char)8: DeleteShape(); break;
+                    }
+                }
+            }
+        }
+        private void cb_Figures_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            checkedFigure = ((ComboBox)sender).Text;
+            if (checkedFigure != "Mouse")
+            {
+                numberEditionFigure = -1;
+                numberSelectionFigure = -1;
+                DrawAll();
+            }
+            else
+            {
+                checkedFigure = "";
+            }
+        }
+        private void createNewFigureToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NewShape newShape = new NewShape(0, 0, pictureBox.Width, pictureBox.Height, shapes);
+            InputBox.InputBox inputBox = new InputBox.InputBox();
+            inputBox.TextMessage = "Input name:";
+            string nameNewShape = inputBox.getString();
+            if (!CheckNameFigure(nameNewShape))
+            {
+                MessageBox.Show("Shape cann't create, because this name exist!", "Error create new shape", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            if (nameNewShape == "")
+            {
+                MessageBox.Show("Shape cann't create, because you don't pointer name!", "Error create new shape", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            newShapes.Add(nameNewShape, (NewShape)(newShape.Clone()));
+            cb_Figures.Items.Add(nameNewShape);
+            SaveNewFigures();
+        }
+        private bool CheckNameFigure(string nameNewShape)
+        {
+            if (typeOfFigures.ContainsKey(nameNewShape))
+            {
+                return false;
+            }
+            if (newShapes.ContainsKey(nameNewShape))
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

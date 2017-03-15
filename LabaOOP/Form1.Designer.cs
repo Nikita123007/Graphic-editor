@@ -42,11 +42,11 @@
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fieldSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
+            this.createNewFigureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pbSurfaceDraw = new System.Windows.Forms.PictureBox();
-            this.Mouse = new System.Windows.Forms.RadioButton();
-            this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cb_Figures = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.widthPenNumeric)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbSurfaceDraw)).BeginInit();
@@ -56,7 +56,7 @@
             // 
             this.btnColorIndex.BackColor = System.Drawing.Color.Black;
             this.btnColorIndex.Enabled = false;
-            this.btnColorIndex.Location = new System.Drawing.Point(47, 361);
+            this.btnColorIndex.Location = new System.Drawing.Point(47, 186);
             this.btnColorIndex.Name = "btnColorIndex";
             this.btnColorIndex.Size = new System.Drawing.Size(25, 25);
             this.btnColorIndex.TabIndex = 9;
@@ -64,7 +64,7 @@
             // 
             // btnCheckColor
             // 
-            this.btnCheckColor.Location = new System.Drawing.Point(12, 307);
+            this.btnCheckColor.Location = new System.Drawing.Point(12, 132);
             this.btnCheckColor.Name = "btnCheckColor";
             this.btnCheckColor.Size = new System.Drawing.Size(101, 48);
             this.btnCheckColor.TabIndex = 10;
@@ -74,7 +74,7 @@
             // 
             // widthPenNumeric
             // 
-            this.widthPenNumeric.Location = new System.Drawing.Point(12, 272);
+            this.widthPenNumeric.Location = new System.Drawing.Point(12, 97);
             this.widthPenNumeric.Minimum = new decimal(new int[] {
             1,
             0,
@@ -93,7 +93,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(33, 248);
+            this.label1.Location = new System.Drawing.Point(33, 73);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(59, 21);
             this.label1.TabIndex = 12;
@@ -165,7 +165,7 @@
             this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fieldSizeToolStripMenuItem,
             this.toolStripComboBox1,
-            this.importToolStripMenuItem});
+            this.createNewFigureToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(81, 25);
             this.settingsToolStripMenuItem.Text = "Settings";
@@ -174,7 +174,7 @@
             // 
             this.fieldSizeToolStripMenuItem.Enabled = false;
             this.fieldSizeToolStripMenuItem.Name = "fieldSizeToolStripMenuItem";
-            this.fieldSizeToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.fieldSizeToolStripMenuItem.Size = new System.Drawing.Size(210, 26);
             this.fieldSizeToolStripMenuItem.Text = "Field size:";
             // 
             // toolStripComboBox1
@@ -189,6 +189,13 @@
             this.toolStripComboBox1.Size = new System.Drawing.Size(121, 23);
             this.toolStripComboBox1.Text = "3";
             this.toolStripComboBox1.TextChanged += new System.EventHandler(this.toolStripComboBox1_TextChanged);
+            // 
+            // createNewFigureToolStripMenuItem
+            // 
+            this.createNewFigureToolStripMenuItem.Name = "createNewFigureToolStripMenuItem";
+            this.createNewFigureToolStripMenuItem.Size = new System.Drawing.Size(210, 26);
+            this.createNewFigureToolStripMenuItem.Text = "Create new figure";
+            this.createNewFigureToolStripMenuItem.Click += new System.EventHandler(this.createNewFigureToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -208,39 +215,30 @@
             this.pbSurfaceDraw.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbSurfaceDraw.Location = new System.Drawing.Point(124, 34);
             this.pbSurfaceDraw.Name = "pbSurfaceDraw";
-            this.pbSurfaceDraw.Size = new System.Drawing.Size(650, 350);
+            this.pbSurfaceDraw.Size = new System.Drawing.Size(650, 380);
             this.pbSurfaceDraw.TabIndex = 2;
             this.pbSurfaceDraw.TabStop = false;
             this.pbSurfaceDraw.MouseDown += new System.Windows.Forms.MouseEventHandler(this.StartPaintFigure);
             this.pbSurfaceDraw.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PaintFigure);
             this.pbSurfaceDraw.MouseUp += new System.Windows.Forms.MouseEventHandler(this.FinishPaintFigure);
             // 
-            // Mouse
+            // cb_Figures
             // 
-            this.Mouse.AutoSize = true;
-            this.Mouse.Location = new System.Drawing.Point(12, 220);
-            this.Mouse.Name = "Mouse";
-            this.Mouse.Size = new System.Drawing.Size(79, 25);
-            this.Mouse.TabIndex = 14;
-            this.Mouse.Text = "Mouse";
-            this.Mouse.UseVisualStyleBackColor = true;
-            this.Mouse.Click += new System.EventHandler(this.CheckedMouse);
-            this.Mouse.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Mouse_KeyPress);
-            // 
-            // importToolStripMenuItem
-            // 
-            this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            this.importToolStripMenuItem.Text = "Import";
-            this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
+            this.cb_Figures.FormattingEnabled = true;
+            this.cb_Figures.Location = new System.Drawing.Point(12, 34);
+            this.cb_Figures.Name = "cb_Figures";
+            this.cb_Figures.Size = new System.Drawing.Size(106, 29);
+            this.cb_Figures.TabIndex = 15;
+            this.cb_Figures.SelectedIndexChanged += new System.EventHandler(this.cb_Figures_SelectedIndexChanged);
+            this.cb_Figures.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cb_Figures_KeyPress);
             // 
             // DrawFigures
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ClientSize = new System.Drawing.Size(784, 391);
-            this.Controls.Add(this.Mouse);
+            this.ClientSize = new System.Drawing.Size(784, 421);
+            this.Controls.Add(this.cb_Figures);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.widthPenNumeric);
             this.Controls.Add(this.btnCheckColor);
@@ -282,8 +280,8 @@
         private System.Windows.Forms.ToolStripMenuItem fieldSizeToolStripMenuItem;
         private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-        private System.Windows.Forms.RadioButton Mouse;
-        private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
+        private System.Windows.Forms.ComboBox cb_Figures;
+        private System.Windows.Forms.ToolStripMenuItem createNewFigureToolStripMenuItem;
     }
 }
 
